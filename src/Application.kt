@@ -1,17 +1,20 @@
 package com.getbux.assignment
 
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.http.*
-import io.ktor.html.*
-import kotlinx.html.*
+import io.ktor.application.Application
+import io.ktor.application.call
+import io.ktor.html.respondHtml
+import io.ktor.routing.get
+import io.ktor.routing.routing
+import kotlinx.html.a
+import kotlinx.html.body
+import kotlinx.html.h1
+import kotlinx.html.head
+import kotlinx.html.li
+import kotlinx.html.title
+import kotlinx.html.ul
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-
-
 
 
 fun main(args: Array<String>): Unit = io.ktor.server.cio.EngineMain.main(args)
@@ -20,6 +23,24 @@ fun main(args: Array<String>): Unit = io.ktor.server.cio.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
     routing {
+        get("/") {
+            call.respondHtml {
+                head {
+                    title { +"What time is it?" }
+                }
+                body {
+                    ul {
+                        li {
+                            a(href = "amsterdam") { +"Amsterdam" }
+                        }
+                        li {
+                            a(href = "london") { +"London" }
+                        }
+                    }
+                }
+            }
+        }
+
         get("/amsterdam") {
             call.respondHtml {
                 head {
