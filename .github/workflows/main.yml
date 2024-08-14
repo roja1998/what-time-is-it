@@ -34,7 +34,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/what-time-is-it:latest
+          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/what-time-is-it-repo:latest
 
       - name: Deploy to Cloud Run
         env:
@@ -43,8 +43,8 @@ jobs:
         run: |
           echo $GCP_SA_KEY | gcloud auth activate-service-account --key-file=-
           gcloud config set project $GCP_PROJECT_ID
-          gcloud run deploy what-time-is-it \
-            --image gcr.io/${GCP_PROJECT_ID}/what-time-is-it:latest \
+          gcloud run deploy what-time-is-it-repo \
+            --image gcr.io/${GCP_PROJECT_ID}/what-time-is-it-repo:latest \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated
